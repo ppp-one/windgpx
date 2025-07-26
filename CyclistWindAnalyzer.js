@@ -390,17 +390,6 @@ If you recorded this track without timestamps, you may need to re-record your ro
                 this.windData.push(this.createDefaultWindData(currentTime, closestPoint));
             }
 
-            //Ianto Cannon 2025 Jun 26
-            //console.log('windInfo',windInfo)
-            const landLabel = await this.fetchLandUse(closestPoint.lat, closestPoint.lon);
-            const z0 = this.estimateZ0FromLandUse(landLabel);
-            
-            const lastWind = this.windData[this.windData.length - 1];
-            const u10 = lastWind.wind_speed;
-
-            const u1_5 = this.windSpeedAt1_5m(this.windData, z0);
-            console.log(landLabel,z0,u1_5,u10)
-
             // Update progress after each step, regardless of success or failure
             this.updateProgress(++currentStep, totalSteps);
             currentTime = new Date(currentTime.getTime() + interval);
@@ -460,54 +449,6 @@ If you recorded this track without timestamps, you may need to re-record your ro
         return this.parseWeatherData(data, timestamp);
     }
 
-    //Ianto Cannon 2025 Jul 26
-    estimateZ0FromLandUse(label) {
-      const lookup = {
-        "forest": 1.0,
-        "residential": 0.8,
-        "grass": 0.03,
-        "farmland": 0.25,
-        "meadow": 0.1,
-        "industrial": 1.0,
-        "commercial": 1.0,
-        "water": 0.0002,
-        "sand": 0.01,
-        "scrub": 0.2,
-        "bare_rock": 0.05,
-        "default": 0.03
-      };
-
-      // Match common landuse or natural terms from OSM
-      const key = label?.toLowerCase();
-      for (const tag in lookup) {
-        if (key.includes(tag)) return lookup[tag];
-      }
-      return lookup["default"];
-    }
-
-    //Ianto Cannon 2025 Jul 26
-    async fetchLandUse(lat, lon) {
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
-      const response = await fetch(url, {
-        headers: { 'User-Agent': 'WindApp/1.0' } // Nominatim requires this
-      });
-      const data = await response.json();
-      console.log('Nominatim response:', data);
-
-      // Extract landuse, natural, or similar tags
-      const tags = data?.extratags || {};
-      const landType = tags.landuse || tags.natural || tags.leisure || "unknown";
-
-      return landType;
-    }
-
-    //Ianto Cannon 2025 Jul 26
-    windSpeedAt1_5m(u10, z0) {
-      const z1 = 1.5;
-      const z2 = 10;
-      return u10 * (Math.log(z1 / z0) / Math.log(z2 / z0));
-    }
-
     parseWeatherData(data, timestamp) {
         if (!data.hourly?.time?.length) {
             throw new Error("No hourly data available");
@@ -526,9 +467,12 @@ If you recorded this track without timestamps, you may need to re-record your ro
             }
         }
 
-        const windSpeed = (data.hourly.wind_speed_10m[closestIdx] || 0) * 3.6; // Convert to km/h
+        const windSpeed10m = (data.hourly.wind_speed_10m[closestIdx] || 0) * 3.6; // Convert to km/h
         const windDirection = data.hourly.wind_direction_10m[closestIdx] || 0;
-       
+      
+        //Ianto Cannon Jul 26: calculate the wind speed 1.5m above the ground, assuming a roughness length of 0.1m
+        const windSpeed = windSpeed10m * (Math.log(1.5 / 0.1) / Math.log(10 / 0.1));
+
         return { wind_speed: windSpeed, wind_direction: windDirection };
     }
 
