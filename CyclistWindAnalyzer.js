@@ -1557,6 +1557,7 @@ If you recorded this track without timestamps, you may need to re-record your ro
         const results = document.getElementById("results");
         const upload = document.querySelector(".bg-white.rounded-lg.p-12");
         const fileDropArea = document.getElementById("fileDropArea");
+        const loadExampleBtn = document.getElementById("loadExampleBtn");
 
         // Show loading element and its parent container
         if (loading) {
@@ -1573,6 +1574,8 @@ If you recorded this track without timestamps, you may need to re-record your ro
         if (fileDropArea) {
             fileDropArea.classList.add("hidden");
             fileDropArea.classList.remove("show");
+            loadExampleBtn.classList.add("hidden");
+            loadExampleBtn.classList.remove("show");
         }
 
         // Hide results

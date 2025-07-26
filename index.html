@@ -10,40 +10,40 @@
     <meta name="keywords" content="GPX analyzer, cycling wind analysis, bike performance, headwind tailwind, cycling weather, GPS track analysis, cycling computer data" />
     <meta name="author" content="GPX Wind Analyzer" />
     <meta name="robots" content="index, follow" />
-    <!-- <link rel="canonical" href="https://yourdomain.com/" /> -->
+    <link rel="canonical" href="https://windgpx.netlify.app/" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <!-- <meta property="og:url" content="https://yourdomain.com/" /> -->
+    <meta property="og:url" content="https://windgpx.netlify.app/" />
     <meta property="og:title" content="GPX Wind Analyzer - Cycling Performance vs Wind Analysis" />
     <meta property="og:description" content="Upload your GPX cycling data to analyze how wind conditions affected your ride performance. Get detailed insights into headwinds, tailwinds, and speed variations." />
-    <!-- <meta property="og:image" content="https://yourdomain.com/og-image.jpg" /> -->
+    <meta property="og:image" content="https://windgpx.netlify.app/Screenshot.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="GPX Wind Analyzer" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <!-- <meta property="twitter:url" content="https://yourdomain.com/" /> -->
+    <meta property="twitter:url" content="https://windgpx.netlify.app/" />
     <meta property="twitter:title" content="GPX Wind Analyzer - Cycling Performance vs Wind Analysis" />
     <meta property="twitter:description" content="Upload your GPX cycling data to analyze how wind conditions affected your ride performance. Free web-based tool for cyclists." />
-    <!-- <meta property="twitter:image" content="https://yourdomain.com/og-image.jpg" /> -->
-    
+    <meta property="twitter:image" content="https://windgpx.netlify.app/Screenshot.jpg" />
+
     <!-- Favicon -->
-    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" /> -->
     
     <!-- Schema.org structured data -->
-    <!-- <script type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "GPX Wind Analyzer",
       "description": "Web-based tool for analyzing cycling performance against wind conditions using GPX track data and historical weather information",
-      "url": "https://yourdomain.com/",
+      "url": "https://windgpx.netlify.app/",
       "applicationCategory": "SportsApplication",
       "operatingSystem": "Web Browser",
       "offers": {
@@ -60,7 +60,7 @@
       ],
       "browserRequirements": "Requires JavaScript and modern web browser"
     }
-    </script> -->
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -110,6 +110,14 @@
               📁 Choose GPX File or Drag & Drop<br />
               <small>Analysis will start automatically once loaded</small>
             </label>
+          </div>
+          <div class="text-center">
+            <button
+              class="text-blue-600 hover:text-blue-800 underline text-sm font-medium cursor-pointer transition-all duration-200"
+              id="loadExampleBtn"
+            >
+              See example .gpx 🔗
+            </button>
           </div>
           <div
             class="hidden text-center text-blue-600 font-medium my-8"

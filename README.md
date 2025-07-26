@@ -1,6 +1,6 @@
 # GPX Wind Analyzer 🌪️
 
-A web-based tool for analyzing cycling performance against wind conditions using GPX track data and historical weather information.
+A web-based tool for viewing cycling performance against wind conditions using GPX track data and historical weather information.
 
 ![GPX Wind Analyzer Screenshot](Screenshot.jpg)
 

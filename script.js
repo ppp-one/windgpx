@@ -150,3 +150,30 @@ document
             await handleFileSelection(file);
         }
     });
+
+// Load Example button functionality
+document
+    .getElementById("loadExampleBtn")
+    .addEventListener("click", async function () {
+        try {
+
+            // Fetch the example GPX file
+            const response = await fetch('./example.gpx');
+            if (!response.ok) {
+                throw new Error(`Failed to load example file: ${response.status}`);
+            }
+
+            const gpxText = await response.text();
+
+            // Create a File-like object from the text
+            const blob = new Blob([gpxText], { type: 'application/gpx+xml' });
+            const file = new File([blob], 'example.gpx', { type: 'application/gpx+xml' });
+
+            // Process the example file using the same logic as file upload
+            await handleFileSelection(file);
+
+        } catch (error) {
+            console.error("Error loading example file:", error);
+            alert("Failed to load example file: " + error.message);
+        }
+    });
