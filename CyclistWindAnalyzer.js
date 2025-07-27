@@ -164,7 +164,7 @@ class CyclistWindAnalyzer {
 
         try {
             const timeString = timeElement.textContent.trim();
-            console.log(`Processing timestamp: "${timeString}"`);
+            //console.log(`Processing timestamp: "${timeString}"`);
 
             let time = new Date(timeString);
 
@@ -467,8 +467,11 @@ If you recorded this track without timestamps, you may need to re-record your ro
             }
         }
 
-        const windSpeed = (data.hourly.wind_speed_10m[closestIdx] || 0) * 3.6; // Convert to km/h
+        const windSpeed10m = (data.hourly.wind_speed_10m[closestIdx] || 0) * 3.6; // Convert to km/h
         const windDirection = data.hourly.wind_direction_10m[closestIdx] || 0;
+      
+        //Ianto Cannon Jul 26: calculate the wind speed 1.5m above the ground, assuming a roughness length of 0.1m
+        const windSpeed = windSpeed10m * (Math.log(1.5 / 0.1) / Math.log(10 / 0.1));
 
         return { wind_speed: windSpeed, wind_direction: windDirection };
     }
